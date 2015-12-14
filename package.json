@@ -1,9 +1,9 @@
 {
   "name": "packagesmith",
-  "version": "0.0.0-development",
+  "version": "v1.0.1",
   "description": "Provisioning/scaffolding tool for Rapid Development",
-  "homepage": "http://keithamus.github.io/packagesmith",
-  "bugs": "http://github.com/keithamus/packagesmith/issues",
+  "homepage": "http://packagesmith.github.io/packagesmith",
+  "bugs": "http://github.com/packagesmith/packagesmith/issues",
   "license": "MIT",
   "author": "Keith Cirkel (http://keithcirkel.co.uk)",
   "files": [
@@ -12,7 +12,7 @@
   "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/keithamus/packagesmith.git"
+    "url": "git+ssh://git@github.com/packagesmith/packagesmith.git"
   },
   "scripts": {
     "lint": "eslint src test --ignore-path .gitignore",
