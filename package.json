@@ -6,6 +6,9 @@
   "bugs": "http://github.com/keithamus/packagesmith/issues",
   "license": "MIT",
   "author": "Keith Cirkel (http://keithcirkel.co.uk)",
+  "files": [
+    "lib/*.js"
+  ],
   "main": "lib/index.js",
   "repository": {
     "type": "git",
