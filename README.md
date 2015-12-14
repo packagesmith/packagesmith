@@ -54,7 +54,7 @@ Here's a slightly more extended sequence of events on how runProvisionerSet work
 Here is a simple example demonstrating basic functionality;
 
 ```js
-import { runProvisionerSet } from '@economist/provision';
+import { runProvisionerSet } from 'packagesmith';
 
 runProvisionerSet('/path/to/the/dir/i/want/to/provision', {
 
