@@ -1,6 +1,6 @@
 {
   "name": "packagesmith",
-  "version": "v1.0.1",
+  "version": "0.0.0-development",
   "description": "Provisioning/scaffolding tool for Rapid Development",
   "homepage": "http://packagesmith.github.io/packagesmith",
   "bugs": "http://github.com/packagesmith/packagesmith/issues",
