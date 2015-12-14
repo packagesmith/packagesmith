@@ -18,13 +18,14 @@
     "lint": "eslint src test --ignore-path .gitignore",
     "prepublish": "babel src -d lib",
     "pretest": "npm run lint",
-    "semantic-release": "travis-after-all && semantic-release pre && npm publish && semantic-release post",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "test": "mocha --recursive test/ --compilers js:babel/register",
     "watch": "npm run prepublish -- -w"
   },
   "config": {
     "ghooks": {
-      "commit-msg": "validate-commit-msg"
+      "commit-msg": "validate-commit-msg",
+      "pre-commit": "npm test"
     }
   },
   "babel": {

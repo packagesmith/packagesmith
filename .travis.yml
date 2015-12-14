@@ -8,7 +8,7 @@ node_js:
   - v4
   - stable
 after_success:
-  - npm run semantic-release
+  - travis-after-all && npm run semantic-release
 env:
   global:
     - secure: oHccwxpkI3SU+EPMmKX1dLzP5Y93AyqdPjqXIu07O+SbWGXPJsyVJAFM0sGMcB4VF5M5tfmkv8koXJa1TIGagmsK/Y5/frn8ts8TMpjeteafY1jk65sNaYd2720bVt9f+VAszsSk2CTZf5jvM04ixVTYIBu4xKHt7lfDQpdVgbq6GNIdl4uHcPHrTZLcfMouIIQnJREKpu8P4Qpa4xuyKLQIGmWTOUtm5Ud89AJbN/+mV2/ie6NxlumZWYEZ+9gC7mOV4StcZMEUp4BZObNBbI5kXJK7NF4+T7XrQP8GprDUMedV/HqIAJmFEYa5u5c/3Z4fMEK8IcBJAe8lYj4/g6IN9t7/DRTrjqWJUBmIjiStYcZtXUil6NnvFtdBzS0QJ92ShCvpz8cnMiPIEZ9VPUcJ7BTRVS/lcZcLNOnoY5cqcs7maAgbKjLLfEWwldXdJY5i1ZtGFclQUHorqCONmcQqHPrBwxeKtMLkq0hDZ5OIpaXhHG9ZJjDWXGeukMwa7GYOJ6oJfvt4HiUNUzIffiAVWGFNOwZUqLNf9JhAQ9rlC07O8EozzCUo9KpHxIdDXsvzaaRPqdTPPvWPLx6432MmYR6yq5RckOX/c5Zd+KXkBRsFlkhl5oXCIXsn4VqVZFpEeURgGw8mtbtss2eprpYuJktfqUugv9Kni2UT31Y=
