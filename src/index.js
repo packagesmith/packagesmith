@@ -270,6 +270,7 @@ export async function runProvisionerSet(projectPath, provisioners) {
     const provisionersToRun = pick(provisioners, filesToWrite);
     await runSteps(projectPath, provisionersToRun, 'before');
     await writeFilesAndSetPermissions(projectPath, provisionersToRun);
+    await runSteps(projectPath, provisioners, 'command');
     await runSteps(projectPath, provisionersToRun, 'after');
     console.log(`\n${successText('Provisioning complete!')}\n`); // eslint-disable-line no-console
   } catch (error) {
