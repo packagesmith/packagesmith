@@ -366,7 +366,7 @@ describe('runSteps', () => {
   it('passes string steps to exec', async function() {
     await runSteps('/foo/bar', provisioners, 'miscstep');
     childProcess.exec.should.have.been.called(1).with.exactly('foo', {
-      cwd: '/foo/bar/README.md',
+      cwd: '/foo/bar',
       env: process.env,
       stdio: [ 'pipe', 1, 2 ],
     });
@@ -379,7 +379,7 @@ describe('runSteps', () => {
       },
     };
     const childProcessOptions = {
-      cwd: '/bar/baz/somefile.js',
+      cwd: '/bar/baz',
       env: process.env,
       stdio: [ 'pipe', 1, 2 ],
     };

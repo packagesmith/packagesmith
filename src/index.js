@@ -193,7 +193,7 @@ export async function runSteps(projectPath, provisioners, stepName) {
       if (typeof step === 'string') {
         debug(`Running ${stepName} step: ${step}`);
         await exec(step, {
-          cwd: resolvedPath,
+          cwd: dirname(resolvedPath),
           env: process.env,
           stdio: [ 'pipe', 1, 2 ],
         });
