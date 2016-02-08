@@ -51,7 +51,7 @@
     "inquirer": "^0.11.1",
     "lodash.isfunction": "^3.0.6",
     "lodash.kebabcase": "^3.0.1",
-    "lodash.partial": "^3.1.1",
+    "lodash.partial": "^4.0.1",
     "lodash.pick": "^4.0.1",
     "lodash.pluck": "^3.1.2",
     "lodash.union": "^4.0.1",
