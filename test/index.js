@@ -1,20 +1,20 @@
-import chai from 'chai';
 import {
-  gatherFileContents,
-  gatherProvisionerQuestions,
-  gatherNewFileContents,
-  gatherDiffs,
   askPermissionToWriteEachFile,
-  runSteps,
-  writeFilesAndSetPermissions,
   combineContentFunctions,
   combineProvisionerSets,
+  gatherDiffs,
+  gatherFileContents,
+  gatherNewFileContents,
+  gatherProvisionerQuestions,
+  runSteps,
+  writeFilesAndSetPermissions,
 } from '../src';
-import fileSystemPromise from 'fs-promise';
-import childProcess from 'child-process-promise';
-import fileSystem from 'fs';
+import chai from 'chai';
 import chaiSpies from 'chai-spies';
+import childProcess from 'child-process-promise';
 import { diffLines } from 'diff';
+import fileSystem from 'fs';
+import fileSystemPromise from 'fs-promise';
 import inquirer from 'inquirer';
 chai.use(chaiSpies).should();
 describe('gatherFileContents', () => {
@@ -170,12 +170,12 @@ describe('gatherNewFileContents', () => {
       'README.md': {
         type: 'file',
         currentContents: 'Hello',
-        contents: chai.spy((contents) => `${contents} World`),
+        contents: chai.spy((contents) => `${ contents } World`),
       },
       'index.js': {
         type: 'file',
         currentContents: 'Goodbye',
-        contents: chai.spy((contents) => `${contents} World`),
+        contents: chai.spy((contents) => `${ contents } World`),
       },
     };
   });
@@ -368,7 +368,7 @@ describe('runSteps', () => {
     childProcess.exec.should.have.been.called(1).with.exactly('foo', {
       cwd: '/foo/bar',
       env: process.env,
-      stdio: [ 'pipe', 1, 2 ],
+      stdio: [ 'pipe', process.stdout, process.stderr ],
     });
   });
 
@@ -381,7 +381,7 @@ describe('runSteps', () => {
     const childProcessOptions = {
       cwd: '/bar/baz',
       env: process.env,
-      stdio: [ 'pipe', 1, 2 ],
+      stdio: [ 'pipe', process.stdout, process.stderr ],
     };
     await runSteps('/bar/baz', provisioners, 'before');
     childProcess.exec
@@ -420,7 +420,7 @@ describe('writeFilesAndSetPermissions', () => {
         calledBefore.push(dir);
         return callback({ code: 'ENOENT' });
       }
-      callback(null);
+      return callback(null);
     });
   });
 
@@ -515,11 +515,11 @@ describe('combineProvisionerSets', () => {
   it('combines all `content` functions into a single function', () => {
     combineProvisionerSets({
       'README.md': {
-        contents: (total) => total += 'b',
+        contents: (total) => `${ total }b`,
       },
     }, {
       'README.md': {
-        contents: (total) => total += 'c',
+        contents: (total) => `${ total }c`,
       },
     })['README.md'].contents('a', 1, 2, 3).should.equal('abc');
   });
