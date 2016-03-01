@@ -13,7 +13,6 @@ import chai from 'chai';
 import chaiSpies from 'chai-spies';
 import childProcess from 'child-process-promise';
 import { diffLines } from 'diff';
-import fileSystem from 'fs';
 import fileSystemPromise from 'fs-promise';
 import inquirer from 'inquirer';
 chai.use(chaiSpies).should();
@@ -395,7 +394,6 @@ describe('runSteps', () => {
 
 describe('writeFilesAndSetPermissions', () => {
   let provisioners = null;
-  const expectedUmask = 0o777 & ~process.umask(); // eslint-disable-line no-bitwise
   beforeEach(() => {
     provisioners = {
       'doc/README.md': {
@@ -409,32 +407,14 @@ describe('writeFilesAndSetPermissions', () => {
         permissions: 456,
       },
     };
-    fileSystemPromise.writeFile = chai.spy(() => Promise.resolve());
+    fileSystemPromise.outputFile = chai.spy(() => Promise.resolve());
     fileSystemPromise.chmod = chai.spy(() => Promise.resolve());
-    // This simulated an empty folder structure that also happily makes
-    // directories when asked. So it fails on the first call with ENOENT,
-    // but succeeds on the second.
-    const calledBefore = [ '/' ];
-    fileSystem.mkdir = chai.spy((dir, mode, callback) => {
-      if (calledBefore.indexOf(dir) === -1) {
-        calledBefore.push(dir);
-        return callback({ code: 'ENOENT' });
-      }
-      return callback(null);
-    });
+    fileSystemPromise.ensureDirectory = chai.spy(() => Promise.resolve());
   });
 
-  it('ensures all directories exist', async function() {
+  it('calls outputFile with the contents of each file, and the path', async function() {
     await writeFilesAndSetPermissions('/foo/bar', provisioners);
-    fileSystem.mkdir
-      .should.have.been.called.with('/foo', expectedUmask)
-      .and.with('/foo/bar', expectedUmask)
-      .and.with('/foo/bar/doc', expectedUmask);
-  });
-
-  it('calls writeFile with the contents of each file, and the path', async function() {
-    await writeFilesAndSetPermissions('/foo/bar', provisioners);
-    fileSystemPromise.writeFile
+    fileSystemPromise.outputFile
       .should.have.been.called.exactly(2)
       .with.exactly('/foo/bar/doc/README.md', 'foobar', 'utf8')
       .and.with.exactly('/foo/bar/index.js', 'bazbing', 'utf8');
@@ -454,18 +434,15 @@ describe('writeFilesAndSetPermissions', () => {
         type: 'folder',
       },
     });
-    fileSystem.mkdir
-      .should.have.been.called.with('/foo/bar/baz/bing', expectedUmask)
-      .and.with('/foo/bar/baz', expectedUmask)
-      .and.with('/foo/bar', expectedUmask)
-      .and.with('/foo', expectedUmask);
+    fileSystemPromise.ensureDirectory
+      .should.have.been.called.with('/foo/bar/baz/bing');
   });
 
 });
 
 describe('combineContentFunctions', () => {
 
-  it('returns firstFunction is secondFunction is not a Function', () => {
+  it('returns firstFunction if secondFunction is not a Function', () => {
     const firstFunction = chai.spy(() => 'foo');
     combineContentFunctions(firstFunction, null).should.equal(firstFunction);
   });

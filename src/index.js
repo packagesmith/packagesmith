@@ -1,4 +1,5 @@
-import { chmod as chmodFile, readFile, writeFile } from 'fs-promise';
+/* @flow */
+import { chmod as chmodFile, ensureDirectory, outputFile, readFile } from 'fs-promise';
 import {
   yellow as colorTextYellow,
   green as diffAddition,
@@ -9,7 +10,6 @@ import {
 } from 'chalk';
 import { dirname, join as joinPath, resolve as resolvePath } from 'path';
 import { diffLines } from 'diff';
-import ensureDirectory from 'mkdirp-promise';
 import { exec } from 'child-process-promise';
 import inquirer from 'inquirer';
 import partial from 'lodash.partial';
