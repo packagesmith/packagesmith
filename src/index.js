@@ -213,8 +213,7 @@ export async function writeFilesAndSetPermissions(projectPath, provisioners) {
     if ((provisioners[fileName].type || 'file') === 'file') {
       debug(`  ${ filePath } is a file, writing contents`);
       debugFile(provisioners[fileName].newContents);
-      await ensureDirectory(dirname(filePath));
-      await writeFile(filePath, provisioners[fileName].newContents, 'utf8');
+      await outputFile(filePath, provisioners[fileName].newContents, 'utf8');
     } else if (provisioners[fileName].type === 'folder') {
       debug(`  ${ filePath } is a folder, ensuring it exists`);
       await ensureDirectory(filePath);
