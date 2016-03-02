@@ -1,5 +1,5 @@
 /* @flow */
-import { chmod as chmodFile, ensureDirectory, outputFile, readFile } from 'fs-promise';
+import { chmod as chmodFile, ensureDir as ensureDirectory, outputFile, readFile } from 'fs-promise';
 import {
   yellow as colorTextYellow,
   green as diffAddition,

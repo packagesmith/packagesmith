@@ -409,7 +409,7 @@ describe('writeFilesAndSetPermissions', () => {
     };
     fileSystemPromise.outputFile = chai.spy(() => Promise.resolve());
     fileSystemPromise.chmod = chai.spy(() => Promise.resolve());
-    fileSystemPromise.ensureDirectory = chai.spy(() => Promise.resolve());
+    fileSystemPromise.ensureDir = chai.spy(() => Promise.resolve());
   });
 
   it('calls outputFile with the contents of each file, and the path', async function() {
@@ -434,7 +434,7 @@ describe('writeFilesAndSetPermissions', () => {
         type: 'folder',
       },
     });
-    fileSystemPromise.ensureDirectory
+    fileSystemPromise.ensureDir
       .should.have.been.called.with('/foo/bar/baz/bing');
   });
 
