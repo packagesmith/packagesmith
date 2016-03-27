@@ -18,7 +18,7 @@ import inquirer from 'inquirer';
 chai.use(chaiSpies).should();
 describe('gatherFileContents', () => {
 
-  it('reads files for every key in given object', async function() {
+  it('reads files for every key in given object', async function () {
     fileSystemPromise.readFile = chai.spy((name) => Promise.resolve(name));
     const fileMap = {
       'README.md': {
@@ -47,7 +47,7 @@ describe('gatherFileContents', () => {
     fileSystemPromise.readFile.should.have.been.called.with('/foo/bar/biz.bang', 'utf8');
   });
 
-  it('returns blank strings for unreadable files', async function() {
+  it('returns blank strings for unreadable files', async function () {
     fileSystemPromise.readFile = chai.spy((name) => {
       if (name === '/foo/bar/README.md') {
         return Promise.reject(new Error('Failed to read file'));
@@ -71,7 +71,7 @@ describe('gatherFileContents', () => {
     fileSystemPromise.readFile.should.have.been.called.with('/foo/bar/index.js', 'utf8');
   });
 
-  it('returns blank strings for `type: folder` entries', async function() {
+  it('returns blank strings for `type: folder` entries', async function () {
     fileSystemPromise.readFile = chai.spy((name) => Promise.resolve(name));
     const fileMap = {
       '.git': {
@@ -273,12 +273,12 @@ describe('askPermissionToWriteEachFile', () => {
     console.log = oldConsoleLog;
   });
 
-  it('prompts the user to ask if the file should be written, for each file', async function() {
+  it('prompts the user to ask if the file should be written, for each file', async function () {
     await askPermissionToWriteEachFile(provisioners);
     inquirer.prompt.should.have.been.called.exactly(2);
   });
 
-  it('returns an array of every file that was permitted to be written', async function() {
+  it('returns an array of every file that was permitted to be written', async function () {
     promptAnswers = { confirmed: true };
     (await askPermissionToWriteEachFile(provisioners))
       .should.deep.equal([ 'README.md', 'index.js' ]);
@@ -288,7 +288,7 @@ describe('askPermissionToWriteEachFile', () => {
       .should.deep.equal([]);
   });
 
-  it('automatically skips files with identical contents', async function() {
+  it('automatically skips files with identical contents', async function () {
     promptAnswers = { confirmed: true };
     provisioners['index.js'].currentContents = provisioners['index.js'].newContents;
     (await askPermissionToWriteEachFile(provisioners))
@@ -332,7 +332,7 @@ describe('runSteps', () => {
     };
   });
 
-  it('calls each named step sequentially with path argument', async function() {
+  it('calls each named step sequentially with path argument', async function () {
     await runSteps('/foo/bar', provisioners, 'before');
     provisioners['README.md'].before[0]
       .should.have.been.called(1).with.exactly('/foo/bar/README.md');
@@ -345,7 +345,7 @@ describe('runSteps', () => {
     callOrder.should.deep.equal([ 1, 2, 3, 4 ]);
   });
 
-  it('calls only the given step name', async function() {
+  it('calls only the given step name', async function () {
     await runSteps('/foo/bar', provisioners, 'after');
     provisioners['README.md'].after[0]
       .should.have.been.called(1).with.exactly('/foo/bar/README.md');
@@ -362,7 +362,7 @@ describe('runSteps', () => {
     provisioners['index.js'].before[1].should.not.have.been.called();
   });
 
-  it('passes string steps to exec', async function() {
+  it('passes string steps to exec', async function () {
     await runSteps('/foo/bar', provisioners, 'miscstep');
     childProcess.exec.should.have.been.called(1).with.exactly('foo', {
       cwd: '/foo/bar',
@@ -371,7 +371,7 @@ describe('runSteps', () => {
     });
   });
 
-  it('can take a mixed array of functions and strings', async function() {
+  it('can take a mixed array of functions and strings', async function () {
     provisioners = {
       'somefile.js': {
         before: [ 'some command', 'some other command', chai.spy() ],
@@ -412,7 +412,7 @@ describe('writeFilesAndSetPermissions', () => {
     fileSystemPromise.ensureDir = chai.spy(() => Promise.resolve());
   });
 
-  it('calls outputFile with the contents of each file, and the path', async function() {
+  it('calls outputFile with the contents of each file, and the path', async function () {
     await writeFilesAndSetPermissions('/foo/bar', provisioners);
     fileSystemPromise.outputFile
       .should.have.been.called.exactly(2)
@@ -420,7 +420,7 @@ describe('writeFilesAndSetPermissions', () => {
       .and.with.exactly('/foo/bar/index.js', 'bazbing', 'utf8');
   });
 
-  it('calls chmod with permissions', async function() {
+  it('calls chmod with permissions', async function () {
     await writeFilesAndSetPermissions('/foo/bar', provisioners);
     fileSystemPromise.chmod
       .should.have.been.called.exactly(2)
@@ -428,7 +428,7 @@ describe('writeFilesAndSetPermissions', () => {
       .and.with.exactly('/foo/bar/index.js', 456);
   });
 
-  it('ensures `type="folder"` paths exist', async function() {
+  it('ensures `type="folder"` paths exist', async function () {
     await writeFilesAndSetPermissions('/foo/bar', {
       'baz/bing': {
         type: 'folder',
