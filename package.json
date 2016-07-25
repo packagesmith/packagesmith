@@ -64,7 +64,7 @@
     "lodash.pick": "^4.1.0",
     "lodash.pluck": "^3.1.2",
     "lodash.union": "^4.2.0",
-    "lodash.uniq": "^4.2.0",
+    "lodash.uniq": "^4.4.0",
     "lodash.zipobject": "^4.1.2"
   },
   "devDependencies": {
