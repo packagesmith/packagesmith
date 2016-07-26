@@ -50,7 +50,7 @@
     "parser": "babel-eslint"
   },
   "dependencies": {
-    "babel-runtime": "^6.6.1",
+    "babel-runtime": "^6.11.6",
     "chalk": "^1.1.3",
     "child-process-promise": "^1.1.0",
     "debug": "^2.2.0",
