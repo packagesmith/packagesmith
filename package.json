@@ -78,7 +78,7 @@
     "chai": "^3.5.0",
     "chai-spies": "^0.7.1",
     "eslint": "~2.10.1",
-    "eslint-config-strict": "^8.5.0",
+    "eslint-config-strict": "^10.0.2",
     "eslint-plugin-filenames": "^0.2.0",
     "ghooks": "^1.0.3",
     "mocha": "^2.4.5",
